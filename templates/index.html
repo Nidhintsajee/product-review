@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="ATIS">
+
+        <title>Sentimental Analysis of Twitter Account</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link rel="shortcut icon" type="image/x-icon" href="https://cdn2.iconfinder.com/data/icons/minimalism/512/twitter.png" />
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- Custom CSS -->
+		<link rel="stylesheet" href="/static/css/patros.css" >
+        
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <![endif]-->
+
+	</head>
+
+    <body data-spy="scroll">
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{% url 'home_url'%}"><img src="/static/images/shopping-cart-logo.svg" alt="company logo" height="400%" /></a><h4> SENTIMENTAL ANALYSIS OF PRODUCT REVIEW</h4>
+					
+					{% if not user.is_authenticated %}
+					<a class="navbar-brand" href="{% url 'signup_url'%}"><img src="/static/images/signup.png" alt="company logo" height="250%"  /></a>
+					<a class="navbar-brand" href="{% url 'login_url'%}"><img src="/static/images/login.png" alt="company logo" height="250%"  /></a>
+					{% else %}
+					<a class="navbar-brand" href="#" style="color: blue;">{{ user.first_name }}</a>
+					<a class="navbar-brand" href="{% url 'logout_url'%}"><img src="/static/images/logout.png" alt="company logo" height="250%"  /></a>
+					
+					{% endif %}
+				</div>
+				
+			</div>
+		</nav>
+
+    <!-- Page Content -->
+	    <div class="container blog singlepost">
+			<div class="row">
+				<article class="col-md-8"><br>
+			        <h1 class="page-header sidebar-title">Post Your Reviews</h1>
+			        <img src="https://brandspurng.com/wp-content/uploads/2017/02/ecommerce-shopping-cart-keyboard-ss-1920.jpg" width="100%" alt="photo" />
+					<div class="row">
+						<div class="col-md-12">
+							<div class="entry-meta">
+								 
+								 
+							</div>
+					</div>
+					</div>
+					
+					<a href="{% url 'product_url'%}">view products</a>
+					<!-- Blog Comments -->
+			        <div class="comments1">
+			        <div class="col-md-12">
+						<div class="col-lg-12">
+							<div class="text-center color-elements">
+							<h2></h2>
+							</div>
+						</div>
+						<div class="well col-lg-12 col-md-8">
+							<!-- <div class=""> -->
+							<div class="col-sm-4 height-contact-element">
+							<form method="post" action="{% url 'home_url'%}">
+								{% csrf_token%}	
+								<!-- <h4>Select Tweet Counts :</h4>
+								<input type="number" name="tweet_count" min="1" max="100" >
+							 -->
+
+							<h4>Select product to view reviews :</h4>
+															
+								<div class="form-group">
+									<!-- <input type="text" class="" name="account_name" > -->
+									<select id="product" name="product">
+									 {% for p in products%}
+									  <option value="{{p.id}}">{{p.name}}</option>
+									 {% endfor %}
+									  <option value="---" selected>---</option>
+									</select>
+								</div>
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</form></div>
+							<div class="col-sm-4 height-contact-element">
+
+						</div>
+						
+					</div>
+			        </div>
+
+			    </article>
+				<!-- Blog Sidebar Column -->
+				
+				<aside class="col-md-4 sidebar-padding">
+					<!-- <div class="blog-sidebar">
+						<div class="input-group searchbar">
+							<form method="post" action="{% url 'search'%}">
+								{% csrf_token%}
+							<table>
+							<tr>
+							<td>	
+							<input type="text"  placeholder="Enter Your  Twitter Hashtag ..." name="hashtag"></td><td></td><td></td>
+							<td>
+							<input type="submit"  value="search"></td>
+						</tr>
+					</table>
+						
+							</form>
+						</div> --><!-- /input-group -->
+					<!-- </div> -->
+					<!-- Blog Categories -->
+					
+					<!-- Recent Posts -->
+					<div class="blog-sidebar">
+						{%if product %}
+
+					    <h4 class="sidebar-title"><i class="fa fa-align-left"></i> {{product}}</h4>
+					    <h1 class="media-heading">{{product}} REVIEWS
+								</h1>{% endif %}
+					    <hr style="margin-bottom: 5px;">
+
+					    <div class="media">
+					        {%if error %}
+					        <h4>{{error}}</h4>
+					        {% endif %}
+					       
+								
+							 {% if ptweets1 %}
+							<p><h1>Positive Review</h1>
+							{% for tweet in ptweets1 %}
+						    	
+						    	<h2 style="font-size:24px; color:#777!important ;"><i class="fa fa-twitter social-icons"></i>{{ tweet|linebreaks }}</h2>
+						      {% endfor %}
+						   
+						    <h3>Postive Percentage : </h3><h2>{{pstv_perc1}}</h2>
+						    {% endif %}
+
+						    {% if ntweets1 %}
+						    <br><h1>Negative Reviews</h1>
+						    {% for tweet in ntweets1 %}
+						   
+						    <h2><i class="fa fa-twitter social-icons"></i>{{tweet|linebreaks}}</h2>
+						    {% endfor %}
+						   
+						<h3>Negative Percentage : </h3><h2>{{nstv_perc1}}</h2>
+						 {% endif %}
+						 {% if neutral1 %}
+							<p><h1>Neutral Reviews</h1>
+							{% for tweet in neutral1 %}
+						    	
+						    	<h2 style="font-size:24px; color:#777!important ;"><i class="fa fa-twitter social-icons"></i>{{ tweet|linebreaks }}</h2>
+						      {% endfor %}
+						   
+						    <h3>Neutral Percentage : </h3><h2>{{neutral_perc1}}</h2>
+						    {% endif %}
+						    
+					        </div>
+					    </div>
+
+					    
+
+					    
+					    
+					</div>
+
+					
+
+				</aside>
+			</div>
+	    </div>
+
+
+<section id="contact">
+			<div class="container"> 
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-lg-12">
+							<div class="text-center color-elements">
+							<h2></h2>
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-8">
+							<form class="inline" id="contactForm" method="post" >
+								<div class="row">
+									<div class="col-sm-4 height-contact-element">
+										<div class="form-group">
+										{%if error1 %}
+					        <h4>{{error1}}</h4>
+					        {% else %}
+					        {%if name1 %}
+
+					    <h4 class="sidebar-title"><i class="fa fa-align-left"></i> {{name1}}</h4>
+					    <h1 class="media-heading">REVIEWS here
+								</h1>{% endif %}
+							
+					        {% endif %}
+							{% if ptweets %}
+								
+							<p><h1>Positive Reviews</h1>
+							{% for tweet in ptweets %}
+						    	
+						    	<h2 style="font-size:24px; color:#777!important ;"><i class="fa fa-twitter social-icons"></i>{{ tweet|linebreaks }}</h2>
+						      {% endfor %}
+						   
+						    <h3>Postive Percentage : </h3><h2>{{pstv_perc}}</h2>
+						    {% endif %}
+						    
+						
+
+
+					
+						
+										</div>
+									</div>
+									<div class="col-sm-4 height-contact-element">
+										<div class="form-group">
+											{% if ntweets %}
+						    <br><h1>Negative Reviews</h1>
+						    {% for tweet in ntweets %}
+						   
+						    <h2><i class="fa fa-twitter social-icons"></i>{{tweet|linebreaks}}</h2>
+						    {% endfor %}
+						   
+						<h3>Negative Percentage : </h3><h2>{{nstv_perc}}</h2>
+						 {% endif %}
+										</div>
+									</div>
+									<div class="col-sm-4 height-contact-element">
+										<div class="form-group">
+											{% if neutral %}
+							<p><h1>Neutral Reviews</h1>
+							{% for tweet in neutral %}
+						    	
+						    	<h2 style="font-size:24px; color:#777!important ;"><i class="fa fa-twitter social-icons"></i>{{ tweet|linebreaks }}</h2>
+						      {% endfor %}
+						   
+						    <h3>Neutral Percentage : </h3><h2>{{neutral_perc}}</h2>
+						    {% endif %}
+										</div>
+									</div>
+									
+								</div>
+							</form>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="follow-us">
+			<div class="container"> 
+				<div class="text-center height-contact-element">
+					<h2>FOLLOW US</h2>
+				</div>
+				
+				<div class="text-center height-contact-element">
+					<ul class="list-unstyled list-inline list-social-icons">
+						<li class="active"><a href="#"><i class="fa fa-facebook social-icons"></i></a></li>
+						<li><a href="#"><i class="fa fa-twitter social-icons"></i></a></li>
+						<li><a href="#"><i class="fa fa-google-plus social-icons"></i></a></li>
+						<li><a href="#"><i class="fa fa-linkedin social-icons"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<footer id="footer">
+			<div class="container">
+				<div class="row myfooter">
+					<div class="col-sm-6"><div class="pull-left">
+					© Copyright Company 2016 | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a>
+					</div></div>
+					<div class="col-sm-6">
+						<div class="pull-right">Designed by <a href="http://www.atis.al">ATIS</a></div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+        <!-- jQuery -->
+        <script src="/static/js/jquery.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/static/js/bootstrap.min.js"></script>
+
+        <!--Jquery Smooth Scrolling-->
+        <script>
+            $(document).ready(function(){
+                $('.custom-menu a[href^="#"], .intro-scroller .inner-link').on('click',function (e) {
+                    e.preventDefault();
+
+                    var target = this.hash;
+                    var $target = $(target);
+
+                    $('html, body').stop().animate({
+                        'scrollTop': $target.offset().top
+                    }, 900, 'swing', function () {
+                        window.location.hash = target;
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            $(".nav a").on("click", function(){
+                     $(".nav").find(".active").removeClass("active");
+                    $(this).parent().addClass("active");
+            });
+        </script>
+
+        <script>
+        //jQuery for page scrolling feature - requires jQuery Easing plugin
+            $(function() {
+                $('a.page-scroll').bind('click', function(event) {
+                    var $anchor = $(this);
+                    $('html, body').stop().animate({
+                        scrollTop: $($anchor.attr('href')).offset().top
+                    }, 1500, 'easeInOutExpo');
+                    event.preventDefault();
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function(){
+                $('body').append('<div id="toTop" class="btn btn-primary color1"><span class="glyphicon glyphicon-chevron-up"></span></div>');
+                    $(window).scroll(function () {
+                        if ($(this).scrollTop() != 0) {
+                            $('#toTop').fadeIn();
+                        } else {
+                            $('#toTop').fadeOut();
+                        }
+                    }); 
+                $('#toTop').click(function(){
+                    $("html, body").animate({ scrollTop: 0 }, 700);
+                    return false;
+                });
+            });
+        </script>
+
+    </body>
+</html>

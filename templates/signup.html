@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+         <title>{{signup_tags.title}}</title>
+        <meta name="description" content="Classic Serviced Apartments"/>
+        <meta name="keywords" content="Classic Serviced Apartments"/>
+        <meta name="key-phrases" content=""/>
+        <meta name="subject" content="" />
+        <meta name='viewport' content='width=device-width; content=width = 100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=yes; target-densitydpi=160dpi'>
+        <link rel="shortcut icon" type="image/x-icon" href="https://cdn2.iconfinder.com/data/icons/minimalism/512/twitter.png" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <style>
+        .btn,.btn.blue{text-shadow:none}body{font-family:"Open Sans",sans-serif;height:100vh;transition:all .3s ease-out;background-repeat:no-repeat;background-size:cover}@keyframes spinner{0%{transform:rotateZ(0)}100%{transform:rotateZ(359deg)}}*{box-sizing:border-box}.wrapper{display:flex;align-items:center;flex-direction:column;justify-content:center;width:100%;min-height:100%}.login{padding:10px 20px 20px;width:90%;max-width:350px;background:white;position:relative;box-shadow:0 1px 5px rgba(0,0,0,.3)}.login.loading button{max-height:100%;padding-top:50px}.login.loading button .spinner{opacity:1;top:40%}.login.ok button{background-color:#8bc34a}.login.ok button .spinner{border-radius:0;border-top-color:transparent;border-right-color:transparent;height:20px;animation:none;transform:rotateZ(-45deg)}.login input{display:block;padding:10px;margin-bottom:10px;width:100%;border:1px solid #ddd;transition:border-width .2s ease;border-radius:2px;color:#ccc}.login input+i.fa{color:#fff;font-size:1em;position:absolute;margin-top:-47px;opacity:0;left:0;transition:all .1s ease-in}.login input:focus{outline:0;color:#444;border-color:#173883;border-left-width:35px}.login input:focus+i.fa{opacity:1;left:30px;transition:all .25s ease-out}.login a{font-size:.8em;color:#000;text-decoration:none}.login .title{color:#000;font-size:18px;font-weight:400;margin:10px 0 30px;border-bottom:1px solid #eee;padding-bottom:20px}.login:not(.loading) button:hover{box-shadow:0 1px 3px #2196F3}.login:not(.loading) button:focus{border-bottom-width:4px}.btn.blue{color:#fff;background-color:#000}.btn.blue.active,.btn.blue.disabled,.btn.blue:active,.btn.blue:focus,.btn.blue:hover,.btn.blue[disabled]{background-color:#0362fd!important;color:#fff!important}.btn{background-color:#e5e5e5;background-image:none;filter:none;border:0;padding:7px 14px;font-family:"Segoe UI",Helvetica,Arial,sans-serif;font-size:14px;color:#333;cursor:pointer;outline:0;-webkit-box-shadow:none!important;-moz-box-shadow:none!important;box-shadow:none!important;-webkit-border-radius:0!important;-moz-border-radius:0!important;border-radius:0!important;-webkit-text-shadow:none;-moz-text-shadow:none}footer{display:block;padding-top:50px;text-align:center;color:#ddd;font-weight:400;text-shadow:0 -1px 0 rgba(0,0,0,.2);font-size:.8em}footer a,footer a:link{color:#fff;text-decoration:none}.invalid{color:red;font-size:12px;display:none}.create-ac,a.cana{font-size:13px}.create-ac{margin-top:68px}input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{background-color:#fbfbfb!important;background-image:none;color:#000}.back-to-home,.back-to-home2{background-color:#000;padding:5px 15px;position:relative}.back-to-home{color:#fff;right:153px;top:0px}.back-to-home2{color:#fff;right:108px}.back-to-home a,.back-to-home2 a{color:#fff;text-decoration:none}
+        @media(max-width:384px) and (min-width: 360px){
+        .back-to-home {
+        color: #fff;
+        right: 142px;
+        top: 28px;
+        }
+        .back-to-home2 {
+        color: #fff;
+        right: 97px;
+        }
+        }
+         @media(max-width:359px) and (min-width:290px){
+        .back-to-home {
+        color: #fff;
+        right: 114px;
+        top: 28px;
+        }
+        .back-to-home2 {
+        color: #fff;
+        right:68px;
+        }
+        }
+        body {
+    background-color: #48bed6;
+}
+        </style>
+        
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="back-to-home"><a class="aminas-home" href="{% url 'home_url' %}"><i class="fa fa-home" aria-hidden="true"></i></a></div>
+           
+            <form method="post" action="{% url 'signup_url' %}" class="login" onsubmit="return validateForm()" name="customerData" name="contact">{% csrf_token %}
+                <div class="true">
+                    <p class="title">Sign Up</p>
+                    {% if error %}
+                        <p>
+                        <h5 style="color: red;"> {{ error }} </h5> </p>
+                    {% endif %}
+                    <input required="required" id="name" name="name" type="text" placeholder="Name" autofocus/>
+                    <input required="required" id="phone" name="phone" type="number" placeholder="Phone" min="0" autofocus/>
+                    <input required="required" id="emaail" name="email" type="email" placeholder="Email" autofocus/>
+                    <input required="required" id="email" name="pass1" type="password" placeholder="Password" type="password" placeholder="Password"  data-validation="strength"
+                    data-validation-strength="2" autofocus/>
+                    <br>
+                    <div class="login-otp2" style="float: left;">
+                        <button class="btn pull-left"><a href="{% url 'login_url' %}">Login</a></button>
+                    </div>
+                    <div class="login-otp2">
+
+                        <button class="btn blue pull-right" type="submit">
+                        <span class="state">Sign Up</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </p>
+    </div>
+    <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    <script type="text/javascript">
+    function validateForm() {
+    var name = document.forms["customerData"]["name"].value;
+    var phone = document.forms["customerData"]["phone"].value;
+    var email = document.forms["customerData"]["email"].value;
+    var password = document.forms["customerData"]["password"].value;
+    if (name == "") {
+    document.getElementById("name").style.borderColor = "red";
+    return false;
+    }
+    if (name !== "") {
+    document.getElementById("name").style.borderColor = "#175a40";
+    }
+    if (phone == "") {
+    document.getElementById("phone").style.borderColor = "red";
+    return false;
+    }
+    if (phone !== "") {
+    document.getElementById("phone").style.borderColor = "#175a40";
+    }
+    if (email == "") {
+    document.getElementById("email").style.borderColor = "red";
+    return false;
+    }
+    if (email !== "") {
+    document.getElementById("email").style.borderColor = "#175a40";
+    }
+    if (password == "") {
+    document.getElementById("password").style.borderColor = "red";
+    return false;
+    }
+    if (password !== "") {
+    document.getElementById("password").style.borderColor = "#175a40";
+    }
+    if ((name !== "") && (phone !== "") && (email !== "") && (password !== "")) {
+    document.getElementById("hideloading").style.display = "box";
+    }
+    }
+    </script>
+    <script>
+    $.validate({
+    lang: 'en'
+    });
+    $.validate({
+    modules : 'location, date, security, file',
+    onModulesLoaded : function() {
+    $('#country').suggestCountry();
+    }
+    });
+    $('#presentation').restrictLength( $('#pres-max-length') );
+    </script>
+</body>
+</html>
